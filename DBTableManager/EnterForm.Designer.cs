@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnterForm));
             this.btnConfirm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -52,6 +53,7 @@
             this.ClientSize = new System.Drawing.Size(884, 188);
             this.Controls.Add(this.btnConfirm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "EnterForm";
             this.Text = "Enter Data";
