@@ -30,13 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.btnModify = new System.Windows.Forms.Button();
             this.comboBoxTables = new System.Windows.Forms.ComboBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.создатьToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.btn_OpenFile = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btn_AddEntry = new System.Windows.Forms.ToolStripButton();
+            this.btn_ModifyEntry = new System.Windows.Forms.ToolStripButton();
+            this.btn_DeleteEntry = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btn_RefreshTable = new System.Windows.Forms.ToolStripButton();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -47,57 +50,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(213, 82);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 30);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(689, 357);
+            this.dataGridView1.Size = new System.Drawing.Size(886, 409);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(213, 29);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(685, 47);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Refresh Table";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 308);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(195, 131);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(12, 188);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(195, 114);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // btnModify
-            // 
-            this.btnModify.Location = new System.Drawing.Point(12, 82);
-            this.btnModify.Name = "btnModify";
-            this.btnModify.Size = new System.Drawing.Size(195, 100);
-            this.btnModify.TabIndex = 4;
-            this.btnModify.Text = "Modify Entry";
-            this.btnModify.UseVisualStyleBackColor = true;
-            this.btnModify.Click += new System.EventHandler(this.btnModify_Click);
             // 
             // comboBoxTables
             // 
             this.comboBoxTables.FormattingEnabled = true;
-            this.comboBoxTables.Location = new System.Drawing.Point(813, 2);
+            this.comboBoxTables.Location = new System.Drawing.Point(804, 2);
             this.comboBoxTables.Name = "comboBoxTables";
             this.comboBoxTables.Size = new System.Drawing.Size(94, 21);
             this.comboBoxTables.TabIndex = 5;
@@ -106,36 +67,99 @@
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.создатьToolStripButton});
+            this.btn_OpenFile,
+            this.toolStripSeparator1,
+            this.btn_AddEntry,
+            this.btn_ModifyEntry,
+            this.btn_DeleteEntry,
+            this.toolStripSeparator2,
+            this.btn_RefreshTable});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(910, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // создатьToolStripButton
+            // btn_OpenFile
             // 
-            this.создатьToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.создатьToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("создатьToolStripButton.Image")));
-            this.создатьToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.создатьToolStripButton.Name = "создатьToolStripButton";
-            this.создатьToolStripButton.Size = new System.Drawing.Size(23, 22);
-            this.создатьToolStripButton.Text = "&Создать";
+            this.btn_OpenFile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btn_OpenFile.Image = ((System.Drawing.Image)(resources.GetObject("btn_OpenFile.Image")));
+            this.btn_OpenFile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_OpenFile.Name = "btn_OpenFile";
+            this.btn_OpenFile.Size = new System.Drawing.Size(23, 22);
+            this.btn_OpenFile.Text = "Open .db file";
+            this.btn_OpenFile.Click += new System.EventHandler(this.btn_OpenFile_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btn_AddEntry
+            // 
+            this.btn_AddEntry.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btn_AddEntry.Image = ((System.Drawing.Image)(resources.GetObject("btn_AddEntry.Image")));
+            this.btn_AddEntry.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_AddEntry.Name = "btn_AddEntry";
+            this.btn_AddEntry.Size = new System.Drawing.Size(23, 22);
+            this.btn_AddEntry.Text = "Add an entry to the table";
+            this.btn_AddEntry.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btn_ModifyEntry
+            // 
+            this.btn_ModifyEntry.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btn_ModifyEntry.Image = ((System.Drawing.Image)(resources.GetObject("btn_ModifyEntry.Image")));
+            this.btn_ModifyEntry.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_ModifyEntry.Name = "btn_ModifyEntry";
+            this.btn_ModifyEntry.Size = new System.Drawing.Size(23, 22);
+            this.btn_ModifyEntry.Text = "Edit selected entry";
+            this.btn_ModifyEntry.Click += new System.EventHandler(this.btnModify_Click);
+            // 
+            // btn_DeleteEntry
+            // 
+            this.btn_DeleteEntry.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btn_DeleteEntry.Image = ((System.Drawing.Image)(resources.GetObject("btn_DeleteEntry.Image")));
+            this.btn_DeleteEntry.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_DeleteEntry.Name = "btn_DeleteEntry";
+            this.btn_DeleteEntry.Size = new System.Drawing.Size(23, 22);
+            this.btn_DeleteEntry.Text = "Delete selected entry";
+            this.btn_DeleteEntry.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btn_RefreshTable
+            // 
+            this.btn_RefreshTable.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btn_RefreshTable.Image = ((System.Drawing.Image)(resources.GetObject("btn_RefreshTable.Image")));
+            this.btn_RefreshTable.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btn_RefreshTable.Name = "btn_RefreshTable";
+            this.btn_RefreshTable.Size = new System.Drawing.Size(23, 22);
+            this.btn_RefreshTable.Text = "Refresh table";
+            this.btn_RefreshTable.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(737, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Your table is";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(910, 441);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxTables);
-            this.Controls.Add(this.btnModify);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "DTViewManager";
@@ -150,13 +174,16 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button btnModify;
         private System.Windows.Forms.ComboBox comboBoxTables;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton создатьToolStripButton;
+        private System.Windows.Forms.ToolStripButton btn_OpenFile;
+        private System.Windows.Forms.ToolStripButton btn_AddEntry;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btn_ModifyEntry;
+        private System.Windows.Forms.ToolStripButton btn_DeleteEntry;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton btn_RefreshTable;
     }
 }
 

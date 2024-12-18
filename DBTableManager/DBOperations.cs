@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
+//code is pretty self-explainatory
 namespace DBTableManager
 {
     internal class DBOperations
     {
         private DataBaseConnector _connector;
-        private MainForm _mainForm;
 
-        public DBOperations(DataBaseConnector connector, MainForm mainForm)
+        public DBOperations(DataBaseConnector connector)
         {
             _connector = connector;
-            _mainForm = mainForm;
         }
 
         public void DeleteEntry(string tableName, DataGridView dataGridView)
@@ -27,65 +26,77 @@ namespace DBTableManager
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error " + e);
+                MessageBox.Show("Error occured in deletion process: " + e);
             }
         }
 
-        
+
         public void AddEntry(ComboBox comboBox, string tableName)
         {
-
-            string query = $"PRAGMA table_info({tableName});";
-
-            DataTable columns = _connector.StartQuery(query);
-
-            using (EnterForm enterForm = new EnterForm(columns))
+            try
             {
-                if (enterForm.ShowDialog() == DialogResult.OK)
-                {
-                    var columnNames = new List<string>();
-                    var values = new List<string>();
-                    foreach(DataRow row in columns.Rows)
-                    {
-                        string columnName = row["name"].ToString();
-                        string value = enterForm.GetValueFromDict(columnName);
-                        columnNames.Add(columnName);
-                        values.Add($"'{value}'");
-                    }
+                string query = $"PRAGMA table_info({tableName});";
 
-                    string insertQuery = $"INSERT INTO {tableName}({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", values)});";
-                    _connector.StartNoQuery(insertQuery);
+                DataTable columns = _connector.StartQuery(query);
+
+                using (EnterForm enterForm = new EnterForm(columns))
+                {
+                    if (enterForm.ShowDialog() == DialogResult.OK)
+                    {
+                        var columnNames = new List<string>();
+                        var values = new List<string>();
+                        foreach (DataRow row in columns.Rows)
+                        {
+                            string columnName = row["name"].ToString();
+                            string value = enterForm.GetValueFromDict(columnName);
+                            columnNames.Add(columnName);
+                            values.Add($"'{value}'");
+                        }
+
+                        string insertQuery = $"INSERT INTO {tableName}({string.Join(", ", columnNames)}) VALUES ({string.Join(", ", values)});";
+                        _connector.StartNoQuery(insertQuery);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error occured while adding an entry: " + e);
             }
         }
 
 
 
-        public void ModifyEntry(string tableName)
+        public void ModifyEntry(string tableName, DataGridView dataGridView)
         {
-
-            string query = $"PRAGMA table_info({tableName});";
-
-            DataTable columns = _connector.StartQuery(query);
-            using (EnterForm enterForm = new EnterForm(columns))
+            try
             {
-                if (enterForm.ShowDialog() == DialogResult.OK)
-                {
-                    int id = Convert.ToInt32(_mainForm.DataGridProp.SelectedRows[0].Cells[0].Value);
-                    var columnNames = new List<string>();
-                    var values = new List<string>();
-                    var setPair = new List<string>();
-                    foreach (DataRow row in columns.Rows)
-                    {
-                        string columnName = row["name"].ToString();
-                        string value = enterForm.GetValueFromDict(columnName);
-                        columnNames.Add(columnName);
-                        setPair.Add($"{columnName}='{value}'");
-                    }
-                    string updateQuery = $"UPDATE {tableName} SET {string.Join(", ", setPair)} WHERE {columnNames[0]} = {id};";
-                    _connector.StartNoQuery(updateQuery);
+                string query = $"PRAGMA table_info({tableName});";
 
+                DataTable columns = _connector.StartQuery(query);
+                using (EnterForm enterForm = new EnterForm(columns))
+                {
+                    if (enterForm.ShowDialog() == DialogResult.OK)
+                    {
+                        int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
+                        var columnNames = new List<string>();
+                        var values = new List<string>();
+                        var setPair = new List<string>();
+                        foreach (DataRow row in columns.Rows)
+                        {
+                            string columnName = row["name"].ToString();
+                            string value = enterForm.GetValueFromDict(columnName);
+                            columnNames.Add(columnName);
+                            setPair.Add($"{columnName}='{value}'");
+                        }
+                        string updateQuery = $"UPDATE {tableName} SET {string.Join(", ", setPair)} WHERE {columnNames[0]} = {id};";
+                        _connector.StartNoQuery(updateQuery);
+
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error while modifying entry: " + e);
             }
         }
 
@@ -103,28 +114,24 @@ namespace DBTableManager
                 {
                     comboBoxTables.Items.Add(row["name"].ToString());
                 }
-                if (comboBoxTables.Items.Count > 0)
-                {
-                    comboBoxTables.SelectedIndex = 0;
-                }
 
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error: " + e);
+                MessageBox.Show("Error while filling tables list: " + e);
             }
         }
-        public void LoadTables(string tableName)
+        public void LoadTables(string tableName, DataGridView dataGridView) //loading data from table to datagridview
         {
             try
             {
                 string query = $"SELECT * FROM {tableName}";
                 DataTable tableData = _connector.StartQuery(query);
-                _mainForm.DataGridProp.DataSource = tableData;
+                dataGridView.DataSource = tableData;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("error " + ex);
+                MessageBox.Show("Failed to load tables in grid: " + ex);
             }
         }
     }

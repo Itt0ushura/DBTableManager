@@ -8,7 +8,7 @@ namespace DBTableManager
 {
     public partial class EnterForm : Form
     {
-        private Dictionary<string, TextBox> _textboxes = new Dictionary<string, TextBox>();
+        private Dictionary<string, TextBox> _textboxes = new Dictionary<string, TextBox>(); //dictionary to store TKey = name of column TValue = textbox to place
 
         public EnterForm(DataTable columns)
         {
@@ -28,7 +28,6 @@ namespace DBTableManager
                                 
                 _textboxes[columnName] = textbox;
                 
-
                 x += 200;
             }
         }
